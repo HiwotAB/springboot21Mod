@@ -95,15 +95,15 @@ public class HomeController {
         if(bindingResult.hasErrors()){
             return "signUpForm";
         }
-        else if(user.getSelectVal().contains("USER"))        {
-
-            userService.saveUser(user);
-            model.addAttribute("message","User Account Successfully Created");
-        }
+//        else if(user.getSelectVal().contains("USER"))        {
+//
+//            userService.saveUser(user);
+//            model.addAttribute("message","User Account Successfully Created");
+//        }
         else
             {
-            userService.saveAdmin(user);
-            model.addAttribute("message","Admin Account Successfully Created");
+            userService.saveUser(user);
+            model.addAttribute("message","User Account Successfully Created");
         }
         return "signUpConfirm";
 

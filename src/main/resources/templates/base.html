@@ -44,14 +44,108 @@
 </div>
 <header id="header">
     <div class="container">
-    <!-- Navigation -->
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li><a href="/signUpForm">SignUp</a></li>
-                    <li><a href="/logout">LogOut</a></li>
-                </ul>
-            </nav><!-- #nav-menu-container -->
+        <!-- Navigation -->
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="active"><a href="/">Robo Resume Home</a></li>
+                <li><a href="/addUser">Add New Person Info</a></li>
+                <li><a href="/listUserInfo">List User Information</strong></a></li>
+                <!--&lt;!&ndash;<a th:disabled="${rowNumberP lt 1}" href="/addEduInfo">Add Education Info</a>&ndash;&gt;-->
+                <!--<li><a href="/addEduInfo">Add Education Info</a></li>-->
+                <!--<li><a href="/addWorkExpInfo">Add Work Experience Info</a></li>-->
+                <!--<li><a href="/addSkillInfo">Add Skills Info</a></li>-->
+                <li><a href="/logout">LogOut</a></li>
+            </ul>
+        </nav><!-- #nav-menu-container -->
+    </div>
+</header>
+</div>
+<div th:fragment="javaScript">
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/superfish/hoverIntent.js"></script>
+    <script src="/lib/superfish/superfish.min.js"></script>
+    <script src="/lib/tether/js/tether.min.js"></script>
+    <script src="/lib/stellar/stellar.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/easing/easing.js"></script>
+    <script src="/lib/stickyjs/sticky.js"></script>
+    <script src="/lib/parallax/parallax.js"></script>
+    <script src="/lib/lockfixed/lockfixed.min.js"></script>
+
+    <!-- Template Specisifc Custom Javascript File -->
+    <script src="/js/custom.js"></script>
+
+    <script src="/contactform/contactform.js"></script>
+
+
+</div>
+<div th:fragment="footer">Robo Resume Application @ copyright 2017</div>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <meta charset="utf-8">
+    <title>Bell Bootstrap 4 Theme</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+    <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="/css/style.css" rel="stylesheet">
+
+</div>
+<header id="header">
+    <div class="container">
+        <!-- Navigation -->
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="active"><a href="/">Robo Resume Home</a></li>
+                <li><a href="/addUser">Add New Person Info</a></li>
+                <li><a href="/listUserInfo">List User Information</strong></a></li>
+                <!--&lt;!&ndash;<a th:disabled="${rowNumberP lt 1}" href="/addEduInfo">Add Education Info</a>&ndash;&gt;-->
+                <!--<li><a href="/addEduInfo">Add Education Info</a></li>-->
+                <!--<li><a href="/addWorkExpInfo">Add Work Experience Info</a></li>-->
+                <!--<li><a href="/addSkillInfo">Add Skills Info</a></li>-->
+                <li><a href="/logout">LogOut</a></li>
+            </ul>
+        </nav><!-- #nav-menu-container -->
     </div>
 </header>
 </div>

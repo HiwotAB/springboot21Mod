@@ -1,6 +1,9 @@
 package com.hiwotab.springboot1920.model;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Role {
@@ -10,7 +13,7 @@ public class Role {
     @Column(unique = true)
     private String role;
     @ManyToMany(mappedBy="roles",fetch=FetchType.LAZY)
-    private Collection<User> users;
+    private Set<User> users;
 
     public long getId() {
         return id;
@@ -28,11 +31,16 @@ public class Role {
         this.role = role;
     }
 
-    public Collection<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public void addUser(User user)
+    {
+        this.users.add(user);
     }
 }

@@ -13,10 +13,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,18 +45,29 @@ public class HomeController {
     public String secure() {
         return "secure";
     }
+    @RequestMapping("/testRoles")
+    public @ResponseBody String showRoles()
+    {
+        Iterable <Role> r = roleRepo.findAll();
+        String x="<h2>ROLE DETAILS</h2>";
+        for(Role item:r)
+        {
+            x+="Role details:"+item.getRole()+" has an ID of "+item.getId()+"<br/>";
+        }
+
+        Role findR = roleRepo.findByRole("ADMIN");
+        x+=findR.getRole()+" was found with an ID of "+findR.getId();
+        return x;
+
+    }
     @GetMapping("/signUpForm")
     public String addUser(Model model) {
         model.addAttribute("newUser", new User());
         return "signUpForm";
     }
     @PostMapping("/signUpForm")
-    public String addUserConfirm(@Valid @ModelAttribute("newUser") User user, BindingResult bindingResult , Model model) {
-        if (bindingResult.hasErrors()) {
-            return "signUpForm";
-        }
+    public String addUserConfirm( @ModelAttribute("newUser") User user ) {
 
-//        user.setEnabled(true);
 //        Role role=roleRepo.findOne(new Long(1));
 //        Set<Role> roleSet = new HashSet<Role>();
 //        roleSet.add(role);
@@ -67,21 +75,15 @@ public class HomeController {
 //        userRepo.save(user);
 //        return "signUpConfirm";
 
-        Set<Role> roleSet = new HashSet<Role>();
-        Role byRole = roleRepo.findByRole("USER");
-        roleSet.add(byRole);
-        user.setRoles(roleSet);
-        roleRepo.save(byRole);
+//        Set<Role> roleSet = new HashSet<Role>();
+//        Role byRole = roleRepo.findByRole("USER");
+//        roleSet.add(byRole);
+//        user.setRoles(roleSet);
+
+        user.setEnabled(true);
+        user.addRole(roleRepo.findByRole("USER"));
         userRepo.save(user);
         return "signUpConfirm";
-    }
-    @GetMapping("/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login";
     }
 
     }

@@ -1,6 +1,6 @@
 package com.hiwotab.springboot1920;
 
-import com.hiwotab.springboot1920.model.SSUserDetailsService;
+import com.hiwotab.springboot1920.services.SSUserDetailsService;
 import com.hiwotab.springboot1920.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

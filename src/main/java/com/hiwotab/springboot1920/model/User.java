@@ -2,6 +2,8 @@ package com.hiwotab.springboot1920.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="USER_DATA")
@@ -25,7 +27,12 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
+
+    public User()
+    {
+        this.roles=new HashSet<Role>();
+    }
 
     public long getId() {
         return id;
@@ -83,11 +90,16 @@ public class User {
         this.username = username;
     }
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role)
+    {
+        this.roles.add(role);
     }
 }

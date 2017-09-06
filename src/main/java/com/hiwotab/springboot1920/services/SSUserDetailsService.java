@@ -1,5 +1,7 @@
-package com.hiwotab.springboot1920.model;
+package com.hiwotab.springboot1920.services;
 
+import com.hiwotab.springboot1920.model.Role;
+import com.hiwotab.springboot1920.model.User;
 import com.hiwotab.springboot1920.repositories.UserRepo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,8 +20,8 @@ public class SSUserDetailsService implements UserDetailsService {
 
   private UserRepo userRepo;
 
-  public SSUserDetailsService(UserRepo userRepo){
-      this.userRepo=userRepo;
+  public SSUserDetailsService(UserRepo uRepo){
+      this.userRepo=uRepo;
   }
     @Override
     public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException{

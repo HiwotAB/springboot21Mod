@@ -3,35 +3,52 @@ package com.hiwotab.springboot1920.controller;
 import com.hiwotab.springboot1920.model.Role;
 import com.hiwotab.springboot1920.model.User;
 import com.hiwotab.springboot1920.repositories.RoleRepo;
-import com.hiwotab.springboot1920.repositories.UserRepo;
+import com.hiwotab.springboot1920.repositories.NUserRepo;
+import com.hiwotab.springboot1920.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
+
 @Controller
 public class HomeController {
 
     @Autowired
-    UserRepo userRepo;
+    NUserRepo userRepo;
     @Autowired
     RoleRepo roleRepo;
+    @Autowired
+    private UserService userService;
+//    @RequestMapping(value="/register",method=RequestMethod.GET)
+//    public String showRegistrationPage(Model model) {
+//        model.addAttribute("user",new User());
+//        return "registration";
+//    }
+//    @RequestMapping(value="/register",method=RequestMethod.POST)
+//    public String showRegistrationPage(@Valid @ModelAttribute("user") User user,BindingResult bindingResult, Model model) {
+//        model.addAttribute("user",user);
+//        if(bindingResult.hasErrors()){
+//            return "registration";
+//        }
+//        else
+//        {
+//            userService.saveUser(user);
+//            model.addAttribute("message","User Account Successfully Created");
+//        }
+//        return "index";
+//    }
+
     @RequestMapping("/")
     public String showHomePage() {
+        return "homePage";
+    }
+    @RequestMapping("/index")
+    public String index() {
         return "index";
     }
-
     @RequestMapping("/login")
     public String login() {
             return "login";
@@ -45,6 +62,13 @@ public class HomeController {
     public String secure() {
         return "secure";
     }
+
+    @RequestMapping("/listRoles")
+    public String listRoles(Model model){
+        model.addAttribute("userRoles", roleRepo.findAll());
+
+        return "listRoles";
+    }
     @RequestMapping("/testRoles")
     public @ResponseBody String showRoles()
     {
@@ -52,38 +76,37 @@ public class HomeController {
         String x="<h2>ROLE DETAILS</h2>";
         for(Role item:r)
         {
-            x+="Role details:"+item.getRole()+" has an ID of "+item.getId()+"<br/>";
+            x+="Role details:"+item.getUrole()+" has an ID of "+item.getId()+"<br/>";
         }
 
-        Role findR = roleRepo.findByRole("ADMIN");
-        x+=findR.getRole()+" was found with an ID of "+findR.getId();
+        Role findR = roleRepo.findByUrole("ADMIN");
+        x+=findR.getUrole()+" was found with an ID of "+findR.getId();
         return x;
 
     }
-    @GetMapping("/signUpForm")
-    public String addUser(Model model) {
+    @RequestMapping(value="/signUpForm",method=RequestMethod.GET)
+    public String showRegistrationPage(Model model) {
         model.addAttribute("newUser", new User());
         return "signUpForm";
     }
-    @PostMapping("/signUpForm")
-    public String addUserConfirm( @ModelAttribute("newUser") User user ) {
+    @RequestMapping(value="/signUpForm",method=RequestMethod.POST)
+    public String addUserConfirm(@Valid @ModelAttribute("newUser") User user,BindingResult bindingResult, Model model) {
+        model.addAttribute("newUser",user);
+        if(bindingResult.hasErrors()){
+            return "signUpForm";
+        }
+        else if(user.getSelectVal().contains("USER"))        {
 
-//        Role role=roleRepo.findOne(new Long(1));
-//        Set<Role> roleSet = new HashSet<Role>();
-//        roleSet.add(role);
-//        user.setRoles(roleSet);
-//        userRepo.save(user);
-//        return "signUpConfirm";
-
-//        Set<Role> roleSet = new HashSet<Role>();
-//        Role byRole = roleRepo.findByRole("USER");
-//        roleSet.add(byRole);
-//        user.setRoles(roleSet);
-
-        user.setEnabled(true);
-        user.addRole(roleRepo.findByRole("USER"));
-        userRepo.save(user);
+            userService.saveUser(user);
+            model.addAttribute("message","User Account Successfully Created");
+        }
+        else
+            {
+            userService.saveAdmin(user);
+            model.addAttribute("message","Admin Account Successfully Created");
+        }
         return "signUpConfirm";
+
     }
 
     }

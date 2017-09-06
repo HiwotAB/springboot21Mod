@@ -2,7 +2,7 @@ package com.hiwotab.springboot1920.services;
 
 import com.hiwotab.springboot1920.model.Role;
 import com.hiwotab.springboot1920.model.User;
-import com.hiwotab.springboot1920.repositories.UserRepo;
+import com.hiwotab.springboot1920.repositories.NUserRepo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +18,9 @@ import java.util.Set;
 @Service
 public class SSUserDetailsService implements UserDetailsService {
 
-  private UserRepo userRepo;
+  private NUserRepo userRepo;
 
-  public SSUserDetailsService(UserRepo uRepo){
+  public SSUserDetailsService(NUserRepo uRepo){
       this.userRepo=uRepo;
   }
     @Override
@@ -41,7 +41,7 @@ public class SSUserDetailsService implements UserDetailsService {
   private Set<GrantedAuthority> getAuthorities(User user) {
       Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
       for (Role role : user.getRoles()) {
-          GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());
+          GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getUrole());
           authorities.add(grantedAuthority);
 
       }

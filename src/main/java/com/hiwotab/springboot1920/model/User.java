@@ -1,6 +1,7 @@
 package com.hiwotab.springboot1920.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,15 +24,17 @@ public class User {
     private boolean enabled;
     @Column(name="username")
     private String username;
+    @Column(name="selectVal")
+    private String selectVal;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="role_id"))
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
     public User()
     {
-        this.roles=new HashSet<Role>();
+        this.roles=new ArrayList<Role>();
     }
 
     public long getId() {
@@ -90,16 +93,24 @@ public class User {
         this.username = username;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 
     public void addRole(Role role)
     {
         this.roles.add(role);
+    }
+
+    public String getSelectVal() {
+        return selectVal;
+    }
+
+    public void setSelectVal(String selectVal) {
+        this.selectVal = selectVal;
     }
 }

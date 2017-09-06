@@ -1,0 +1,33 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="utf-8"/>-->
+    <!--<title>Title</title>-->
+<!--</head>-->
+
+<!--<body>-->
+     <!--<h2>Insecure Page</h2>-->
+    <!--<a href="/secure">Secure Page</a>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: header">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="hero">
+    <div class="container text-center">
+        <h1>Welcome to Security Demo Application</h1>
+        <br>
+        <div><h3><a href="secure" type="submit"  class="btn btn-full">LogIn</a></h3></div><br>
+
+        <div><h3><a href="signUpForm" type="submit"  class="btn btn-full">SignUp</a></h3></div>
+    </div>
+    </div>
+</section>
+<div th:replace="base :: javaScript"></div>
+<div th:replace="base :: footer"></div>
+</body>
+</html>

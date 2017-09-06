@@ -28,22 +28,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SSUserDetailsService(userRepo);
     }
 
-    //    @Override
-//    protected void configure(AuthenticationManagerBuilder auth)throws  Exception{
-//        auth.inMemoryAuthentication().
-//                withUser("user").password("password").roles("USER")
-//                .and()
-//                .withUser("dave").password("begreat").roles("ADMIN");
-//
-//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
                 .authorizeRequests()
+                .antMatchers("/","/signUpForm","/css/**","/js/**","/img/**","/font-awesome/**","lib/**").permitAll()
 //                .access("hasRole('ROLE_USER') or hasRole('ADMIN')")
 //                .antMatchers("/admin").access("hasRole('ADMIN')")
-                .antMatchers("/","/signUpForm","/css/**","/js/**","/img/**","/font-awesome/**","lib/**").permitAll()//
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

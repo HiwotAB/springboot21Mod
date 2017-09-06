@@ -1,7 +1,7 @@
 package com.hiwotab.springboot1920.services;
 
-import com.hiwotab.springboot1920.model.Role;
-import com.hiwotab.springboot1920.model.User;
+import com.hiwotab.springboot1920.model.NRole;
+import com.hiwotab.springboot1920.model.NUser;
 import com.hiwotab.springboot1920.repositories.NUserRepo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,7 +26,7 @@ public class SSUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException{
       try {
-          User user = userRepo.findByUsername(username);
+          NUser user = userRepo.findByUsername(username);
           if (user == null) {
               System.out.println("User not Found with the provided username" + user.toString());
               return null;
@@ -38,14 +38,14 @@ public class SSUserDetailsService implements UserDetailsService {
           throw new UsernameNotFoundException("User not found");
       }
   }
-  private Set<GrantedAuthority> getAuthorities(User user) {
-      Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-      for (Role role : user.getRoles()) {
-          GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getUrole());
-          authorities.add(grantedAuthority);
+      private Set<GrantedAuthority> getAuthorities(NUser user) {
+          Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+          for (NRole role : user.getRoles()) {
+              GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getUrole());
+              authorities.add(grantedAuthority);
 
+          }
+          System.out.println("User Authorities are" + authorities.toString());
+          return authorities;
       }
-      System.out.println("User Authorities are" + authorities.toString());
-      return authorities;
-  }
 }

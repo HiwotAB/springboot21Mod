@@ -1,7 +1,7 @@
 package com.hiwotab.springboot1920.controller;
 
-import com.hiwotab.springboot1920.model.Role;
-import com.hiwotab.springboot1920.model.User;
+import com.hiwotab.springboot1920.model.NRole;
+import com.hiwotab.springboot1920.model.NUser;
 import com.hiwotab.springboot1920.repositories.RoleRepo;
 import com.hiwotab.springboot1920.repositories.NUserRepo;
 import com.hiwotab.springboot1920.UserService;
@@ -72,25 +72,25 @@ public class HomeController {
     @RequestMapping("/testRoles")
     public @ResponseBody String showRoles()
     {
-        Iterable <Role> r = roleRepo.findAll();
+        Iterable <NRole> r = roleRepo.findAll();
         String x="<h2>ROLE DETAILS</h2>";
-        for(Role item:r)
+        for(NRole item:r)
         {
             x+="Role details:"+item.getUrole()+" has an ID of "+item.getId()+"<br/>";
         }
 
-        Role findR = roleRepo.findByUrole("ADMIN");
+        NRole findR = roleRepo.findByUrole("ADMIN");
         x+=findR.getUrole()+" was found with an ID of "+findR.getId();
         return x;
 
     }
     @RequestMapping(value="/signUpForm",method=RequestMethod.GET)
     public String showRegistrationPage(Model model) {
-        model.addAttribute("newUser", new User());
+        model.addAttribute("newUser", new NUser());
         return "signUpForm";
     }
     @RequestMapping(value="/signUpForm",method=RequestMethod.POST)
-    public String addUserConfirm(@Valid @ModelAttribute("newUser") User user,BindingResult bindingResult, Model model) {
+    public String addUserConfirm(@Valid @ModelAttribute("newUser") NUser user,BindingResult bindingResult, Model model) {
         model.addAttribute("newUser",user);
         if(bindingResult.hasErrors()){
             return "signUpForm";
@@ -102,7 +102,7 @@ public class HomeController {
 //        }
         else
             {
-            userService.saveAdmin(user);
+            userService.saveUser(user);
             model.addAttribute("message","User Account Successfully Created");
         }
         return "signUpConfirm";

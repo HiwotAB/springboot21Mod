@@ -1,6 +1,6 @@
 package com.hiwotab.springboot1920;
 
-import com.hiwotab.springboot1920.model.User;
+import com.hiwotab.springboot1920.model.NUser;
 import com.hiwotab.springboot1920.repositories.RoleRepo;
 import com.hiwotab.springboot1920.repositories.NUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserService {
     public UserService(NUserRepo userRepo){
         this.userRepo=userRepo;
     }
-    public User findByEmail(String email){
+    public NUser findByEmail(String email){
         return userRepo.findByEmail(email);
 
     }
@@ -25,16 +25,16 @@ public class UserService {
         return userRepo.countByEmail(email);
 
     }
-    public User findByUsername(String username){
+    public NUser findByUsername(String username){
         return userRepo.findByUsername(username);
 
     }
-    public void saveUser(User user){
+    public void saveUser(NUser user){
         user.setRoles(Arrays.asList(roleRepo.findByUrole("USER")));
         user.setEnabled(true);
         userRepo.save(user);
     }
-    public void saveAdmin(User user){
+    public void saveAdmin(NUser user){
         user.setRoles(Arrays.asList(roleRepo.findByUrole("ADMIN")));
         user.setEnabled(true);
         userRepo.save(user);
